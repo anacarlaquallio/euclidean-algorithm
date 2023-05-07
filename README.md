@@ -1,1 +1,1 @@
-# euclidean-algorithm
+# Extended Euclidean Algorithm
