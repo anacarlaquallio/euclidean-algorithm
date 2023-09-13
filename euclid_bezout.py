@@ -1,15 +1,14 @@
 DEBUG = False
 
 def eh_par(n):
-    if (n % 2) == 0:
-        return True
-    else:
-        return False
+  return n % 2 == 0
 
-def coeficientes(alfa, resto_lm, quociente, ab_rm):
+def coeficientes(alfa, resto_lm, quociente, ab_rm, n):
     i = len(alfa) - 1
-    y = (alfa[i]*ab_rm[0] - quociente[0])//resto_lm[0]
-    x = (y * ab_rm[1] - 1)//-(ab_rm[0])
+    #y = (alfa[i]*ab_rm[0] - quociente[0])//resto_lm[0]
+    y = (alfa[i]*ab_rm[0]//resto_lm[n] - quociente[0])//(resto_lm[0]//resto_lm[n])
+    #x = (y * ab_rm[1] - 1)//-(ab_rm[0])
+    x = (y * ab_rm[1]//resto_lm[n] - 1)//-((ab_rm[0])//resto_lm[n])
     return x, y
 
 def metade_restos (resto_l, rn):
@@ -27,7 +26,8 @@ def calcula_alfa(n, resto_lm, quociente):
 
     linha = 1
     while (linha <= i):
-        q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
+        #q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
+        q = (alfa_i[linha - 1] * resto_lm[n - k] // resto_lm[n] - quociente[n - l]) // (resto_lm[n - l] //resto_lm[n])
         alfa_i.append(q)
         k += 2
         l += 2
@@ -50,8 +50,14 @@ def mdc_extendido(a, b):
     
     # verificação triviais
     if (a == 0 and b == 0): return 0, 0, 0
-    if (b == 0 and a != 0): return a, 1, 0
-    elif (a == 0 and b!= 0): return b, 0, 1
+    if (b == 0 and a != 0): 
+        if (a < 0):
+            return a*(-1), -1, 0
+        return a, 1, 0
+    elif (a == 0 and b!= 0): 
+        if (b < 0):
+            return b*(-1), 0, -1
+        return b, 0, 1
     elif(a == b): return a, 1, 0
     elif (a % b == 0): return b, 0, 1
 
@@ -67,7 +73,7 @@ def mdc_extendido(a, b):
         ab_lm = metade_restos(ab, a)
         pos_rn = resto_l.index(a)
         alfa = calcula_alfa(pos_rn, resto_lm, quociente)
-        x, y = coeficientes(alfa, resto_lm, quociente, ab_lm)
+        x, y = coeficientes(alfa, resto_lm, quociente, ab_lm, pos_rn)
 
         if (DEBUG):
             print ("\nTabela de restos: ", resto_l)
