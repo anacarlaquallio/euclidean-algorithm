@@ -6,9 +6,7 @@ def eh_par(n):
 def coeficientes(alfa, resto_lm, quociente, ab_rm, n):
     i = len(alfa) - 1
     y = (alfa[i]*ab_rm[0] - quociente[0])//resto_lm[0]
-    #y = (alfa[i]*ab_rm[0]//resto_lm[n] - quociente[0])//(resto_lm[0]//resto_lm[n])
     x = (y * ab_rm[1] - 1)//-(ab_rm[0])
-    #x = (y * ab_rm[1]//resto_lm[n] - 1)//-((ab_rm[0])//resto_lm[n])
     return x, y
 
 def metade_restos (resto_l, rn):
@@ -27,7 +25,6 @@ def calcula_alfa(n, resto_lm, quociente):
     linha = 1
     while (linha <= i):
         q = (alfa_i[linha - 1] * resto_lm[n - k] - quociente[n - l]) // resto_lm[n - l]
-        #q = (alfa_i[linha - 1] * resto_lm[n - k] // resto_lm[n] - quociente[n - l]) // (resto_lm[n - l] //resto_lm[n])
         alfa_i.append(q)
         k += 2
         l += 2
@@ -36,10 +33,7 @@ def calcula_alfa(n, resto_lm, quociente):
 
 def verifica (ab, a, x, y):
     c = ab[0] * x + ab[1] * y
-    if (c==a):
-        return True
-    else:
-        return False
+    return c == a
 
 def mdc_extendido(a, b):
 
